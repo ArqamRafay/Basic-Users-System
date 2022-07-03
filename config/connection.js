@@ -23,10 +23,11 @@ const testing = {
     host: process.env.DB_HOST || 'localhost',
     dialect: 'sqlite' || 'mysql' || 'postgres',
   };
-  
+  const dbInfo = development
   module.exports = {
-    development,
-    testing,
-    production,
+    // development,
+    // testing,
+    // production,
+    dbInfo
   };
   
