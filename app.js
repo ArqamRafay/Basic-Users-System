@@ -10,7 +10,8 @@ const key = require('./config/auth.config')
 const PORT = process.env.PORT || 8081;
 
 const db = require("./models");
-// db.sequelize.sync();
+
+db.sequelize.sync();
 // db.sequelize.sync().then(() => {
 //     console.log("All models were synchronized successfully.");
 //     console.log("Drop and re-sync db.");
@@ -26,7 +27,7 @@ app.use(
     jwt({
         secret: _secret,
         algorithms: ["HS256"],
-    }).unless({ path: ["/token/sign", "/"] })
+    }).unless({ path: ["/token/sign", "/", "/restricted"] })
 );
 
 app.listen(PORT, () => {
