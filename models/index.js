@@ -1,5 +1,4 @@
 const dbConfig = require("../config/db.config.js");
-// const Sequelize = require("sequelize");
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -31,7 +30,6 @@ fs
         (file.slice(-3) === '.js'))
     .forEach((file) => {
         // console.log(file)
-        // const model = Sequelize.import(path.join(__dirname, file));
         var model = require(path.join(__dirname, file))(sequelize, Sequelize);
         db[model.name] = model;
     });
