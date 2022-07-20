@@ -18,6 +18,9 @@ var app,
 
 var { expressjwt: jwt } = require("express-jwt");
 const _secret = require('./auth.config.js')._secret;
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerDocument = require('../swagger.json');
 
 // if (process.env.NODE_ENV != "production") {
 //   dotenv = require("dotenv").load();
@@ -27,6 +30,9 @@ const port = process.env.PORT || 8081;
 let start = function (cb) {
     app = express(); // Configure express
     app.use(helmet());
+
+    // let express to use this
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     // parse cookies
     // we need this because "cookie" is true in csrfProtection
@@ -94,8 +100,8 @@ let start = function (cb) {
         res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
         next();
     });
-    logger.info("[SERVER] Initializing routes");
 
+    logger.info("[SERVER] Initializing routes");
     //   app.use(require("../app/routes/index.route"));
     app.use(require("../routes/index.route"));
 
