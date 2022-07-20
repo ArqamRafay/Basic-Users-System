@@ -164,12 +164,6 @@ exports.findAllPublished = (req, res) => {
 
 // usage of in line query
 exports.inLineQuery = async (req, res) => {
-    // const { Sequelize } = require('sequelize');
-    // const customQuery = ` select * from articles where id =3 `
-    // let combinationCount = await db.sequelize.query(customQuery, { type: Sequelize.QueryTypes.SELECT, logging: false })
-    // if (combinationCount.length)
-    //     res.status(200).send(combinationCount)
-    // else
     res.status(200).send({ message: "No data gathered" })
 
 };

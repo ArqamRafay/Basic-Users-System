@@ -1,4 +1,3 @@
-// config/server.js
 var app,
     compression = require('compression'),
     express = require("express"),
@@ -17,12 +16,12 @@ var app,
     // https = require('https'),
     cookieParser = require('cookie-parser')
 
+var { expressjwt: jwt } = require("express-jwt");
+const _secret = require('./auth.config.js')._secret;
+
 // if (process.env.NODE_ENV != "production") {
 //   dotenv = require("dotenv").load();
 // }
-
-var { expressjwt: jwt } = require("express-jwt");
-const _secret = require('./auth.config.js')._secret;
 const port = process.env.PORT || 8081;
 
 let start = function (cb) {
@@ -68,7 +67,7 @@ let start = function (cb) {
         jwt({
             secret: _secret,
             algorithms: ["HS256"],
-        }).unless({ path: ["/token/sign", "/", "/restricted"] })
+        }).unless({ path: ["/token/sign", "/", "/OpenApi"] })
     );
 
     // app.use(cors());

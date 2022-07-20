@@ -12,7 +12,7 @@ router.use('/oauth/allow', oauth.authorise(), (req, res) => { return res.status(
 router.use(helmet());
 router.all('/oauth/token', oauth.grant());
 
-
+/* CREATE TOKEN FOR USE */
 router.get('/token/sign', (req, res) => {
     var userData = {
         "name": "Muhammad Bilal",
@@ -21,6 +21,10 @@ router.get('/token/sign', (req, res) => {
     let token = jsonwebtoken.sign(userData, _secret, { expiresIn: '150s' })
     res.status(200).json({ "token": token });
 })
+
+router.get('/OpenApi', (req, res) => {
+    res.json("Welcome to OpenApi world");
+});
 
 router.get('*', (req, res) => {
     res.status(200).send({
