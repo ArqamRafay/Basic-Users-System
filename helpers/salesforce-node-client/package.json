@@ -1,0 +1,82 @@
+{
+  "_from": "salesforce-node-client",
+  "_id": "salesforce-node-client@1.2.2",
+  "_inBundle": false,
+  "_integrity": "sha512-dMzcwUVbKQ6t9VDBMjAbpjm/NN6VqaVpk+fzqt9uVzwCEF/dEfxgKP6FlaGKoxc5AggK8bYqQk62xFjEdncVNA==",
+  "_location": "/salesforce-node-client",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "salesforce-node-client",
+    "name": "salesforce-node-client",
+    "escapedName": "salesforce-node-client",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/salesforce-node-client/-/salesforce-node-client-1.2.2.tgz",
+  "_shasum": "f0def980fb3c94972a1461502635e8e82d5663fc",
+  "_spec": "salesforce-node-client",
+  "_where": "D:\\feedback-wow-server",
+  "author": {
+    "name": "Philippe Ozil"
+  },
+  "bugs": {
+    "url": "https://github.com/pozil/salesforce-node-client/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "request": "~2.83.0",
+    "underscore": "~1.8.3"
+  },
+  "deprecated": false,
+  "description": "Node client library for Salesforce Force.com services (OAuth2, Data and Apex REST)",
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "nock": "^9.1.6",
+    "should": "^13.2.1"
+  },
+  "engines": {
+    "node": "6.2.x"
+  },
+  "homepage": "https://github.com/pozil/salesforce-node-client",
+  "keywords": [
+    "Node",
+    "Salesforce",
+    "Force.com",
+    "OAuth2",
+    "API"
+  ],
+  "license": "Apache-2.0",
+  "main": "src/salesforce-client",
+  "name": "salesforce-node-client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pozil/salesforce-node-client.git"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --recursive"
+  },
+  "version": "1.2.2",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": "6.2.x"
+      },
+      "pkgid": "salesforce-node-client@1.2.2"
+    },
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "node": "6.2.x"
+      },
+      "pkgid": "salesforce-node-client@1.2.2"
+    }
+  ]
+}

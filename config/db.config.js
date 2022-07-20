@@ -36,6 +36,7 @@ module.exports = {
   PASSWORD: "admin",
   DB: "userManagement",
   dialect: "postgres",
+  port: 5432,
   pool: {
     max: 5,
     min: 0,
