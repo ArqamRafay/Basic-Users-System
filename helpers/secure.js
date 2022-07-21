@@ -3,8 +3,13 @@ const CryptoJS = require('crypto-js');
 const crypto = require("crypto");
 
 const decrypt = (req) => {
-  if (req && req.body && req.body.data ) {
-    var bytes  = CryptoJS.AES.decrypt(req.body.data.toString(), 'secret123456145674125896', { iv: "secret1234561456" });
+  console.log('------')
+  console.log('req.body: decrypt call')
+  console.log(req.body)
+  console.log('------')
+  if (req && req.body) {
+    console.log('true hun ');
+    var bytes = CryptoJS.AES.decrypt(req.body.encrypted.toString(), 'secret123456145674125896', { iv: "secret1234561456" });
     req['body'] = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   }
   return req;
@@ -22,8 +27,8 @@ const salesforceDecrypt = (req) => {
   // 'abc3': 'VALUES of'
   // };
   // if (req && req.body && req.body.data ) {
-  var decipher = crypto.createDecipheriv('aes192', "secret123456145674125896","secret1234561456");
-  var dec = decipher.update(req,'base64','utf8');
+  var decipher = crypto.createDecipheriv('aes192', "secret123456145674125896", "secret1234561456");
+  var dec = decipher.update(req, 'base64', 'utf8');
   dec += decipher.final('utf8');
 
   // }
@@ -37,8 +42,8 @@ const salesforceEncrypt = (req) => {
   // 'abc3': 'VALUES of'
   // };
   // if (req && req.body && req.body.data ) {
-  var cipher = crypto.createCipheriv('aes192', "secret123456145674125896","secret1234561456");
-  var ci = cipher.update(req,'utf8','base64');
+  var cipher = crypto.createCipheriv('aes192', "secret123456145674125896", "secret1234561456");
+  var ci = cipher.update(req, 'utf8', 'base64');
   ci += cipher.final('base64');
 
   // }

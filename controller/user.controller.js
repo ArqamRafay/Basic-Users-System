@@ -1,13 +1,13 @@
 
 const db = require("../models");
-const Article = db.article;
+const _user = db.user;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Article
 exports.create = (req, res) => {
-
+    console.log(req.body)
     // Validate request
-    if (!req.body.title) {
+    if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -16,13 +16,13 @@ exports.create = (req, res) => {
 
     // Create a Article
     const tutorial = {
-        title: req.body.title,
-        description: req.body.description,
-        published: req.body.published ? req.body.published : false
+        name: req.body.name,
+        email: req.body.email,
+        isActive: req.body.isActive
     };
 
     // Save Article in the database
-    Article.create(tutorial)
+    _user.create(tutorial)
         .then(data => {
             res.send(data);
         })
