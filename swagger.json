@@ -224,35 +224,19 @@
                 }
             }
         },
-        "/editaccount/{id}": {
-            "post": {
+        "/users/findAllUser": {
+            "get": {
+             
                 "tags": [
                     "User"
                 ],
-                "summary": "Save the task",
-                "description": "Save the task",
+                "summary": "Get all user",
+                "description": "Get all user",
                 "produces": [
                     "application/json"
                 ],
                 "consumes": [
                     "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "task object",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "task": {
-                                    "type": "object",
-                                    "$ref": "#/definitions/Task"
-                                }
-                            }
-                        }
-                    }
                 ],
                 "responses": {
                     "200": {

@@ -49,116 +49,102 @@ exports.findAll = (req, res) => {
     }
 };
 
-// Find a single Article with an id
-exports.findOne = (req, res) => {
-    const id = req.params.id;
-
-    Article.findByPk(id)
-        .then(data => {
-            if (data) {
-                res.send(data);
-            } else {
-                res.status(404).send({
-                    message: `Cannot find Article with id=${id}.`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Article with id=" + id
-            });
-        });
+exports.findUserByEmail = async (req, res) => {
+    console.log(req.body)
+    const { email } = req.body
+    if (!(email)) {
+        return res.status(400).send({ msg: "Email is required!" });
+    }
+    try {
+        const userExists = await _user.findOne({ where: { email: email } });
+        if (userExists) {
+            return res.status(200).send({ msg: userExists });
+        } else {
+            return res.status(200).send({ message: "No data found." });
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Some error occurred while creating the Article." });
+    }
 
 };
 
-// Update a Article by the id in the request
-exports.update = (req, res) => {
-
-    const id = req.params.id;
-    Article.update(req.body, {
-        where: { id: id }
-    })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Article was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update Article with id=${id}. Maybe Article was not found or req.body is empty!`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Article with id=" + id
-            });
-        });
-
+exports.updateName = (req, res) => {
+    try {
+        const userId = req.body.id;
+        const _name = req.body.name;
+        if (_name) {
+            _user.update(
+                {
+                    name: _name
+                }, {
+                where: { id: userId }
+            }).then((data) => {
+                return res.send({ message: "User was updated successfully." });
+            })
+        } else {
+            return res.status(200).send({ message: "Please enter name." });
+        }
+    } catch (error) {
+        return res.status(500).send({ message: "Error in API" });
+    }
 };
 
-// Delete a Article with the specified id in the request
-exports.delete = (req, res) => {
-    const id = req.params.id;
+// exports.delete = (req, res) => {
+//     const id = req.params.id;
 
-    Article.destroy({
-        where: { id: id }
-    })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Article was deleted successfully!"
-                });
-            } else {
-                res.send({
-                    message: `Cannot delete Article with id=${id}. Maybe Article was not found!`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Article with id=" + id
-            });
-        });
+//     Article.destroy({
+//         where: { id: id }
+//     })
+//         .then(num => {
+//             if (num == 1) {
+//                 res.send({
+//                     message: "Article was deleted successfully!"
+//                 });
+//             } else {
+//                 res.send({
+//                     message: `Cannot delete Article with id=${id}. Maybe Article was not found!`
+//                 });
+//             }
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message: "Could not delete Article with id=" + id
+//             });
+//         });
+// };
 
+// exports.deleteAll = (req, res) => {
 
-};
+//     Article.destroy({
+//         where: {},
+//         truncate: false
+//     })
+//         .then(nums => {
+//             res.send({ message: `${nums} Tutorials were deleted successfully!` });
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message:
+//                     err.message || "Some error occurred while removing all tutorials."
+//             });
+//         });
+// };
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-
-    Article.destroy({
-        where: {},
-        truncate: false
-    })
-        .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while removing all tutorials."
-            });
-        });
-
-};
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-    Article.findAll({ where: { published: true } })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
-            });
-        });
-};
+// exports.findAllPublished = (req, res) => {
+//     Article.findAll({ where: { published: true } })
+//         .then(data => {
+//             res.send(data);
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message:
+//                     err.message || "Some error occurred while retrieving tutorials."
+//             });
+//         });
+// };
 
 // usage of in line query
 exports.inLineQuery = async (req, res) => {
     res.status(200).send({ message: "No data gathered" })
-
 };
