@@ -178,32 +178,48 @@
         }
     },
     "paths": {
-        "/createUser": {
-            "get": {
+        "/users/signup": {
+            "post": {
                 "tags": [
                     "User"
                 ],
-                "summary": "Get all the tasks",
-                "description": "Get all the tasks",
+                "summary": "Create new user",
+                "description": "Create new user",
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "password": "body",
+                        "email": "task object",
+                        "isActive": true,
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/todosResponse"
+                            "type": "object",
+                            "properties": {
+                                "task": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Task"
+                                }
                             }
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
                     },
                     "400": {
-                        "description": "Invalid status value",
-                        "schema": {
-                            "$ref": "#/definitions/InvalidResponse"
-                        }
+                        "description": "empty body"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "403": {
+                        "description": "Invalid token"
+                    },
+                    "500": {
+                        "description": "Internal Server error"
                     }
                 }
             }

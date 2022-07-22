@@ -1,57 +1,52 @@
 
 const db = require("../models");
+const bcrypt = require('bcrypt')
 const _user = db.user;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Article
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
+
     console.log(req.body)
+    const { name, email, password, isActive } = req.body
     // Validate request
-    if (!req.body) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
+    if (!(name && email && password)) {
+        return res.status(400).send({ msg: "All feild are required!" });
     }
-
-    // Create a Article
-    const tutorial = {
-        name: req.body.name,
-        email: req.body.email,
-        isActive: req.body.isActive
-    };
-
-    // Save Article in the database
-    _user.create(tutorial)
-        .then(data => {
-            res.send(data);
+    try {
+        const userExists = await _user.findOne({ where: { email: email } });
+        if (userExists) {
+            return res.status(200).send({ msg: 'User already exists. Please login' })
+        }
+        encryptedPassword = await bcrypt.hash(password, 10);
+        const user = await _user.create({
+            name: req.body.name,
+            password: encryptedPassword,
+            email: req.body.email,
+            isActive: req.body.isActive
+        }).then((data) => {
+            return res.status(200).send(data);
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the Article."
-            });
-        });
 
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            message: "Some error occurred while creating the Article."
+        });
+    }
 };
-
-// Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
-
-    Article.findAll({ where: condition })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving tutorials."
+    try {
+        _user.findAll()
+            .then((data) => {
+                return res.status(200).send(data);
+            })
+            .catch(err => {
+                return res.status(500).send({ msg: "Some error occurred while retrieving tutorials." });
             });
-        });
-
+    } catch (error) {
+        return res.status(500).send({ msg: "Some error occurred while retrieving tutorials." });
+    }
 };
 
 // Find a single Article with an id

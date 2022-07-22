@@ -5,8 +5,9 @@ secure = require("../helpers/secure");
 
 const usersController = require("../controller/user.controller.js");
 router.route("/").get((req, res) => usersController.list(secure.decrypt(req), res));
-// router.route("/signup").post((req, res) => usersController.create(secure.decrypt(req), res));
-router.route("/signup").post((req, res) => usersController.create(req, res));
+router.route("/createUser").post((req, res) => usersController.create(req, res));
+router.route("/findAllUser").get((req, res) => usersController.findAll(req, res));
+
 router.route("/login").post((req, res) => usersController.login(secure.decrypt(req), res));
 router.route("/social").post((req, res) => usersController.social(secure.decrypt(req), res));
 router.route("/uniqueusername").post((req, res) => usersController.uniqueUsername(secure.decrypt(req), res));
@@ -47,7 +48,7 @@ module.exports = router;
     
 //     // Retrieve all user
 //     router.get("/", user.findAll);
-  
+
 //     // Retrieve all published user
 //     router.get("/published", user.findAllPublished);
   
