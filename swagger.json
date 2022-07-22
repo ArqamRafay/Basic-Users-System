@@ -178,55 +178,22 @@
         }
     },
     "paths": {
-        "/createUser": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get all the tasks",
-                "description": "Get all the tasks",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/todosResponse"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid status value",
-                        "schema": {
-                            "$ref": "#/definitions/InvalidResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/editaccount/{id}": {
+        "/users/signup": {
             "post": {
                 "tags": [
                     "User"
                 ],
-                "summary": "Save the task",
-                "description": "Save the task",
+                "summary": "Create new user",
+                "description": "Create new user",
                 "produces": [
-                    "application/json"
-                ],
-                "consumes": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in": "body",
                         "name": "body",
-                        "description": "task object",
-                        "required": true,
+                        "password": "body",
+                        "email": "task object",
+                        "isActive": true,
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -237,6 +204,39 @@
                             }
                         }
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "empty body"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "403": {
+                        "description": "Invalid token"
+                    },
+                    "500": {
+                        "description": "Internal Server error"
+                    }
+                }
+            }
+        },
+        "/users/findAllUser": {
+            "get": {
+             
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all user",
+                "description": "Get all user",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
                 ],
                 "responses": {
                     "200": {

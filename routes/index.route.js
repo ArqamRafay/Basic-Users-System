@@ -13,18 +13,12 @@ router.get('/token/sign', (req, res) => {
         "name": "Muhammad Bilal",
         "id": "4321"
     }
-    let token = jsonwebtoken.sign(userData, _secret, { expiresIn: '150s' })
+    let token = jsonwebtoken.sign(userData, _secret, { expiresIn: '950s' })
     res.status(200).json({ "token": token });
 })
 
 router.get('/OpenApi', (req, res) => {
     res.json("Welcome to OpenApi world");
-});
-
-router.get('*', (req, res) => {
-    res.status(200).send({
-        message: 'Welcome to the beginning of nothingness.',
-    });
 });
 
 module.exports = router;

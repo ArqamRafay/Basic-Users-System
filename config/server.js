@@ -73,7 +73,7 @@ let start = function (cb) {
         jwt({
             secret: _secret,
             algorithms: ["HS256"],
-        }).unless({ path: ["/token/sign", "/", "/OpenApi"] })
+        }).unless({ path: ["/token/sign", "/api-docs", "/OpenApi","/users/get_users_findAllUser","/users/findAllUser"] })
     );
 
     // app.use(cors());
